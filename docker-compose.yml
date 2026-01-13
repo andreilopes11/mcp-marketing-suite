@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    container_name: mcp-marketing-suite-api
+    env_file:
+      - .env.example
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/app/outputs
+    command:
+      [
+        "uvicorn",
+        "mcp_marketing_suite.api.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+        "--reload",
+      ]

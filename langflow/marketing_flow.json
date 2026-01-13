@@ -1,0 +1,42 @@
+{
+  "name": "Marketing Copilot Flow",
+  "nodes": [
+    {
+      "id": "input-node",
+      "type": "input",
+      "data": {
+        "label": "Product & Audience Input",
+        "fields": ["product", "audience", "brand", "goals"]
+      }
+    },
+    {
+      "id": "resource-node",
+      "type": "custom",
+      "data": {
+        "label": "MCP Resources",
+        "resource_names": ["product_context", "audience_context", "brand_context", "competitors_context"]
+      }
+    },
+    {
+      "id": "crew-node",
+      "type": "custom",
+      "data": {
+        "label": "Crew Execution",
+        "description": "Executa orchestrator com tools MCP"
+      }
+    },
+    {
+      "id": "output-node",
+      "type": "output",
+      "data": {
+        "label": "Artifacts",
+        "format": ["json", "markdown"]
+      }
+    }
+  ],
+  "edges": [
+    {"source": "input-node", "target": "resource-node"},
+    {"source": "resource-node", "target": "crew-node"},
+    {"source": "crew-node", "target": "output-node"}
+  ]
+}
