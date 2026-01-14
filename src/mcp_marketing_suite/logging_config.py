@@ -2,7 +2,10 @@ import logging
 import sys
 from typing import Any, Dict
 
-from pythonjsonlogger.json import JsonFormatter
+try:  # pragma: no cover - optional dependency
+    from pythonjsonlogger.json import JsonFormatter
+except ModuleNotFoundError:  # pragma: no cover
+    JsonFormatter = None
 
 
 class RequestIdFilter(logging.Filter):
@@ -14,7 +17,10 @@ class RequestIdFilter(logging.Filter):
 
 def setup_logging(level: str = "INFO") -> None:
     handler = logging.StreamHandler(sys.stdout)
-    formatter = JsonFormatter("%(levelname)s %(name)s %(message)s %(request_id)s")
+    if JsonFormatter:
+        formatter = JsonFormatter("%(levelname)s %(name)s %(message)s %(request_id)s")
+    else:
+        formatter = logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s %(request_id)s")
     handler.setFormatter(formatter)
     handler.addFilter(RequestIdFilter())
 

@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     app_env: str = Field(default="local", alias="APP_ENV")
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
     port: int = Field(default=8000, alias="PORT")
+    outputs_dir: Path = Field(default=Path("outputs"), alias="OUTPUTS_DIR")
+    enable_crewai: bool = Field(default=False, alias="ENABLE_CREWAI")
 
     openai_api_key: Optional[str] = Field(default=None, alias="OPENAI_API_KEY")
     langflow_api_key: Optional[str] = Field(default=None, alias="LANGFLOW_API_KEY")
